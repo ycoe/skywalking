@@ -36,10 +36,11 @@
         <module>tomcat-7.x-8.x-plugin</module>
         <module>motan-plugin</module>
         <module>mongodb-3.x-plugin</module>
+        <module>mongodb-3.7-plugin</module>
         <module>feign-default-http-9.x-plugin</module>
         <module>okhttp-3.x-plugin</module>
         <module>spring-plugins</module>
-        <module>struts2-2.x-plugin</module>
+        <!--<module>struts2-2.x-plugin</module>-->
         <module>nutz-plugins</module>
         <module>jetty-plugin</module>
         <module>spymemcached-2.x-plugin</module>
@@ -65,7 +66,7 @@
         <module>sofarpc-plugin</module>
         <module>activemq-5.x-plugin</module>
         <module>elasticsearch-5.x-plugin</module>
-        <module>undertow-plugins</module>
+        <!--<module>undertow-plugins</module>-->
         <module>rabbitmq-5.x-plugin</module>
         <module>dubbo-conflict-patch</module>
         <module>canal-1.x-plugin</module>
@@ -74,6 +75,8 @@
         <module>vertx-plugins</module>
         <module>resteasy-plugin</module>
         <module>solrj-7.x-plugin</module>
+        <module>logback-plugin</module>
+        <module>duo-graphql-1.x-plugin</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -155,6 +158,7 @@
                                     <equals arg1="${project.packaging}" arg2="jar" />
                                     <then>
                                         <mkdir dir="${plugin.dest.dir}" />
+                                        <delete file="${agent.package.dest.dir}/logs/skywalking-api.log"/>
                                         <copy file="${project.build.directory}/${project.artifactId}-${project.version}.jar" tofile="${plugin.dest.dir}/${project.artifactId}-${project.version}.jar" overwrite="true" />
                                     </then>
                                 </if>

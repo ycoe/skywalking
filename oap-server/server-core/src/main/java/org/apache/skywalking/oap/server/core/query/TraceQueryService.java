@@ -18,24 +18,31 @@
 
 package org.apache.skywalking.oap.server.core.query;
 
-import java.io.IOException;
-import java.util.*;
-import org.apache.skywalking.apm.network.language.agent.*;
-import org.apache.skywalking.apm.network.language.agent.v2.*;
-import org.apache.skywalking.oap.server.core.*;
+import org.apache.skywalking.apm.network.language.agent.SpanObject;
+import org.apache.skywalking.apm.network.language.agent.TraceSegmentObject;
+import org.apache.skywalking.apm.network.language.agent.UniqueId;
+import org.apache.skywalking.apm.network.language.agent.v2.SegmentObject;
+import org.apache.skywalking.apm.network.language.agent.v2.SpanObjectV2;
+import org.apache.skywalking.oap.server.core.Const;
+import org.apache.skywalking.oap.server.core.CoreModule;
 import org.apache.skywalking.oap.server.core.analysis.manual.segment.SegmentRecord;
-import org.apache.skywalking.oap.server.core.cache.*;
+import org.apache.skywalking.oap.server.core.cache.EndpointInventoryCache;
+import org.apache.skywalking.oap.server.core.cache.NetworkAddressInventoryCache;
+import org.apache.skywalking.oap.server.core.cache.ServiceInventoryCache;
 import org.apache.skywalking.oap.server.core.config.IComponentLibraryCatalogService;
-import org.apache.skywalking.oap.server.core.query.entity.RefType;
-import org.apache.skywalking.oap.server.core.query.entity.Trace;
 import org.apache.skywalking.oap.server.core.query.entity.*;
 import org.apache.skywalking.oap.server.core.register.EndpointInventory;
 import org.apache.skywalking.oap.server.core.register.ServiceInventory;
 import org.apache.skywalking.oap.server.core.storage.StorageModule;
 import org.apache.skywalking.oap.server.core.storage.query.ITraceQueryDAO;
+import org.apache.skywalking.oap.server.library.module.ModuleManager;
 import org.apache.skywalking.oap.server.library.module.Service;
-import org.apache.skywalking.oap.server.library.module.*;
 import org.apache.skywalking.oap.server.library.util.CollectionUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import static java.util.Objects.nonNull;
 
@@ -102,6 +109,9 @@ public class TraceQueryService implements Service {
 
     public Trace queryTrace(final String traceId) throws IOException {
         Trace trace = new Trace();
+
+
+
 
         List<SegmentRecord> segmentRecords = getTraceQueryDAO().queryByTraceId(traceId);
         if (segmentRecords.isEmpty()) {
