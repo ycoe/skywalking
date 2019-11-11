@@ -34,5 +34,6 @@ public class SegmentCoreInfo {
     private boolean isError;
     private long minuteTimeBucket;
     private byte[] dataBinary;
+    private String indexData;
     private boolean isV2;
 }

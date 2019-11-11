@@ -29,7 +29,7 @@ import java.util.function.Supplier;
  */
 public class GraphqlApplierProxy<V> implements Supplier<V> {
 
-    private static final String OPERATION_NAME = "DuoGraphqlAsync";
+    private static final String OPERATION_NAME = "duo-graphql/async";
 
     private Supplier<V> supplier;
 

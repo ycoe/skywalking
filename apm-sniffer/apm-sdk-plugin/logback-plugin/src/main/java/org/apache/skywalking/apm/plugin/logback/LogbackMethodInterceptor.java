@@ -25,6 +25,7 @@ import org.apache.skywalking.apm.agent.core.conf.Config;
 import org.apache.skywalking.apm.agent.core.context.ContextManager;
 import org.apache.skywalking.apm.agent.core.context.tag.StringTag;
 import org.apache.skywalking.apm.agent.core.context.trace.AbstractSpan;
+import org.apache.skywalking.apm.agent.core.context.util.ThrowableTransformer;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.EnhancedInstance;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceConstructorInterceptor;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
@@ -65,8 +66,6 @@ public class LogbackMethodInterceptor implements InstanceMethodsAroundIntercepto
             return;
         }
 
-        Object[] arguments = allArguments;
-
         org.slf4j.Logger logger = null;
         if (org.slf4j.Logger.class.isInstance(objInst)) {
             logger = (org.slf4j.Logger) objInst;
@@ -74,28 +73,25 @@ public class LogbackMethodInterceptor implements InstanceMethodsAroundIntercepto
         String logName = logger == null ? "logback" : logger.getName();
 
         AbstractSpan span = ContextManager.createLocalSpan(LOGBACK_OP_PREFIX + methodName + ":" + logName);
-        boolean hasError = false;
-        for (Object argument : arguments) {
-            if (Throwable.class.isInstance(argument)) {
-                hasError = true;
-                span.log((Throwable) argument);
-            }
-        }
+
         if (STR_ERROR.equals(methodName)) {
             // error log
-            span.errorOccurred();
+//            span.errorOccurred();
         }
 
-        if (!hasError) {
-            long now = System.currentTimeMillis();
-            Map<String, Object> logData = Maps.newHashMap();
-            logData.put("event", methodName);
-            logData.put("logName", logName);
-            logData.put("message", getParamStr(arguments));
-            logData.put("threadName", Thread.currentThread().getName());
-
-            span.log(now, logData);
+        long now = System.currentTimeMillis();
+        Map<String, Object> logData = Maps.newHashMap();
+        logData.put("threadName", Thread.currentThread().getName());
+        logData.put("event", methodName);
+        logData.put("logName", logName);
+        logData.put("message", getParamStr(allArguments));
+        for (Object argument : allArguments) {
+            if (Throwable.class.isInstance(argument)) {
+                logData.put("stack", ThrowableTransformer.INSTANCE.convert2String((Throwable) argument, 8000));
+            }
         }
+
+        span.log(now, logData);
         LOG_TAG.set(span, logName);
     }
 

@@ -35,4 +35,5 @@ public class TraceQueryCondition {
     private TraceState traceState;
     private QueryOrder queryOrder;
     private Pagination paging;
+    private String logKeyword;
 }

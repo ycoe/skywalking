@@ -40,6 +40,7 @@ public class SegmentDispatcher implements SourceDispatcher<Segment> {
         segment.setLatency(source.getLatency());
         segment.setIsError(source.getIsError());
         segment.setDataBinary(source.getDataBinary());
+        segment.setIndexData(source.getIndexData());
         segment.setTimeBucket(source.getTimeBucket());
         segment.setVersion(source.getVersion());
 

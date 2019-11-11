@@ -44,6 +44,7 @@ public class JaegerSpanRecord extends Record {
     public static final String LATENCY = "latency";
     public static final String IS_ERROR = "is_error";
     public static final String DATA_BINARY = "data_binary";
+    public static final String INDEX_DATA = "index_data";
     public static final String ENCODE = "encode";
 
     @Setter @Getter @Column(columnName = TRACE_ID) @IDColumn private String traceId;

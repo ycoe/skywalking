@@ -21,6 +21,7 @@ package org.apache.skywalking.oap.server.receiver.trace.provider.parser.decorato
 import org.apache.skywalking.apm.network.language.agent.TraceSegmentObject;
 import org.apache.skywalking.apm.network.language.agent.UniqueId;
 import org.apache.skywalking.apm.network.language.agent.v2.SegmentObject;
+import org.apache.skywalking.oap.server.receiver.trace.provider.parser.indexer.IndexerFactory;
 
 import static java.util.Objects.isNull;
 
@@ -93,7 +94,8 @@ public class SegmentDecorator implements StandardBuilder {
         }
     }
 
-    @Override public void toBuilder() {
+    @Override
+    public void toBuilder() {
         if (isOrigin) {
             this.isOrigin = false;
             if (isV2) {
@@ -102,5 +104,18 @@ public class SegmentDecorator implements StandardBuilder {
                 this.segmentBuilder = segmentObject.toBuilder();
             }
         }
+    }
+
+    public String getIndexData() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < getSpansCount(); i++) {
+            SpanDecorator span = this.getSpans(i);
+            IndexerFactory.getIndexes().forEach(indexer -> {
+                if (indexer.match(span)) {
+                    indexer.setIndexData(sb, span);
+                }
+            });
+        }
+        return sb.length() > 0 ? sb.toString() : null;
     }
 }

@@ -4,6 +4,7 @@
 [submodule "oap-server/server-query-plugin/query-graphql-plugin/src/main/resources/query-protocol"]
 	path = oap-server/server-query-plugin/query-graphql-plugin/src/main/resources/query-protocol
 	url = https://github.com/apache/skywalking-query-protocol.git
+	branch = v6.4.0
 [submodule "skywalking-ui"]
 	path = skywalking-ui
 	url = git@github.com:ycoe/skywalking-rocketbot-ui.git

@@ -18,10 +18,15 @@
 
 package org.apache.skywalking.oap.server.receiver.trace.provider.parser.decorator;
 
-import java.util.*;
 import org.apache.skywalking.apm.network.common.KeyStringValuePair;
-import org.apache.skywalking.apm.network.language.agent.*;
+import org.apache.skywalking.apm.network.language.agent.KeyWithStringValue;
+import org.apache.skywalking.apm.network.language.agent.SpanLayer;
+import org.apache.skywalking.apm.network.language.agent.SpanObject;
+import org.apache.skywalking.apm.network.language.agent.SpanType;
 import org.apache.skywalking.apm.network.language.agent.v2.SpanObjectV2;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.util.Objects.isNull;
 
@@ -299,6 +304,14 @@ public class SpanDecorator implements StandardBuilder {
             }
             standardBuilder.toBuilder();
         }
+    }
+
+    public SpanObjectV2 getSpanObjectV2() {
+        return spanObjectV2;
+    }
+
+    public SpanObject getSpanObject() {
+        return spanObject;
     }
 
     private List<KeyStringValuePair> convert(List<KeyWithStringValue> list) {

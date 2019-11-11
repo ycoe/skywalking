@@ -47,5 +47,6 @@ public class Segment extends Source {
     @Setter @Getter private int latency;
     @Setter @Getter private int isError;
     @Setter @Getter private byte[] dataBinary;
+    @Setter @Getter private String indexData;
     @Setter @Getter private int version;
 }
