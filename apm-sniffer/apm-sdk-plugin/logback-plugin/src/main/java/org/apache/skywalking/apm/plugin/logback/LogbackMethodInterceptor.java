@@ -76,7 +76,7 @@ public class LogbackMethodInterceptor implements InstanceMethodsAroundIntercepto
 
         if (STR_ERROR.equals(methodName)) {
             // error log
-//            span.errorOccurred();
+            span.errorOccurred();
         }
 
         long now = System.currentTimeMillis();
@@ -131,8 +131,6 @@ public class LogbackMethodInterceptor implements InstanceMethodsAroundIntercepto
         }
 
         return sb.toString();
-
-
     }
 
     @Override

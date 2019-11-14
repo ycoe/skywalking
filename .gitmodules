@@ -1,9 +1,9 @@
 [submodule "apm-protocol/apm-network/src/main/proto"]
 	path = apm-protocol/apm-network/src/main/proto
-	url = https://github.com/apache/skywalking-data-collect-protocol.git
+	url = ssh://xuwenzhen@teamcode.fangdd.net:29418/opensource/github.com/ycoe/skywalking-data-collect-protocol
 [submodule "oap-server/server-query-plugin/query-graphql-plugin/src/main/resources/query-protocol"]
 	path = oap-server/server-query-plugin/query-graphql-plugin/src/main/resources/query-protocol
-	url = https://github.com/apache/skywalking-query-protocol.git
+	url = ssh://xuwenzhen@teamcode.fangdd.net:29418/opensource/github.com/ycoe/skywalking-query-protocol
 	branch = v6.4.0
 [submodule "skywalking-ui"]
 	path = skywalking-ui

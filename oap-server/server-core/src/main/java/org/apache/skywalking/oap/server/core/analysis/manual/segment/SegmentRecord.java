@@ -107,7 +107,7 @@ public class SegmentRecord extends Record {
             record.setLatency(((Number)dbMap.get(LATENCY)).intValue());
             record.setIsError(((Number)dbMap.get(IS_ERROR)).intValue());
             record.setTimeBucket(((Number)dbMap.get(TIME_BUCKET)).longValue());
-            record.setIndexData(((String)dbMap.get(INDEX_DATA)));
+            record.setIndexData((String)dbMap.get(INDEX_DATA));
             if (StringUtil.isEmpty((String)dbMap.get(DATA_BINARY))) {
                 record.setDataBinary(new byte[] {});
             } else {
